@@ -10,8 +10,8 @@
 
 ## 使用方法
 1. 直接将整个目录拖到你的项目中.(注意用group形式,目录会显示成黄色)
-   {%img /CCOpenService_Tree.png CCOpenService_Tree %}
- 
+   ![image](images/CCOpenService_Tree.png)
+      
 2. 在AppDelegate.m文件顶部引入头文件CCOpenService.h,CCOpenConfig.h,并且写入下面的配置信息(注意,类似WeiXinAppID这样的,填写自己的微信appID)
 
 ``` objectivec
@@ -51,7 +51,7 @@
 ```
 
 3. 参考各个平台关于URL scheme的配置指南.例如微信:
-{%img /WeiXin_URL_Scheme.jpg WeiXin_URL_Scheme %}
+![image](images/WeiXin_URL_Scheme.jpg)
 
 4. iOS9 设备需要添加白名单,参考[iOS9白名单](https://github.com/ChenYilong/iOS9AdaptationTips)
 
@@ -72,3 +72,6 @@ CCOpenService *wxService = [CCOpenService getOpenServiceWithName:CCOpenServiceNa
     NSLog(@"Respond data is %@",respond.data);
 }];
 ```
+
+## 其他说明
+由于本人工作忙,所以很多功能还没时间写上.目前已经写好了整体框架,大家有兴趣的可参考我的源码设计模式,将新增的功能PullRrequest给我,谢谢.
