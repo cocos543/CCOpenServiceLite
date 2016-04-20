@@ -1,5 +1,5 @@
 //
-//  CCOpenLoginStrategy.h
+//  CCOpenStrategy.h
 //  用户描述抽象的登录接口,不做具体的实现
 //
 //  Created by 郑克明 on 16/4/12.
