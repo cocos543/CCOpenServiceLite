@@ -9,10 +9,10 @@
 3. 目前支持开放平台登录接入功能,其他功能(分享,收藏,评论等)后期有时间会更新上.
 
 ## 使用方法
-1. 直接将整个目录拖到你的项目中.(注意用group形式,目录会显示成黄色)
+1 直接将整个目录拖到你的项目中.(注意用group形式,目录会显示成黄色)
    ![image](images/CCOpenService_Tree.png)
       
-2. 在AppDelegate.m文件顶部引入头文件CCOpenService.h,CCOpenConfig.h,并且写入下面的配置信息(注意,类似WeiXinAppID这样的,填写自己的微信appID)
+2 在AppDelegate.m文件顶部引入头文件CCOpenService.h,CCOpenConfig.h,并且写入下面的配置信息(注意,类似WeiXinAppID这样的,填写自己的微信appID)
 
 ``` objectivec
 //AppDelegate.m
@@ -50,10 +50,10 @@
 }
 ```
 
-3. 参考各个平台关于URL scheme的配置指南.例如微信:
+3 参考各个平台关于URL scheme的配置指南.例如微信:
 ![image](images/WeiXin_URL_Scheme.jpg)
 
-4. iOS9 设备需要添加白名单,参考[iOS9白名单](https://github.com/ChenYilong/iOS9AdaptationTips)
+4 iOS9 设备需要添加白名单,参考[iOS9白名单](https://github.com/ChenYilong/iOS9AdaptationTips)
 
 ## 接口使用说明
 服务类型目前支持CCOpenServiceNameWeiXin,CCOpenServiceNameQQ,CCOpenServiceNameWeiBo
