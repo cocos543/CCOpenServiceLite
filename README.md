@@ -77,6 +77,4 @@ CCOpenService *wxService = [CCOpenService getOpenServiceWithName:CCOpenServiceNa
 ```
 
 ## 其他说明
-　　WeiXin,QQ,WeiBo目录下的SDK需要手动导入,另外第三方平台的SDK可能需要手动导入一些类库,具体的先参考具体平台的官方说明,有空更新上.
-　　
-　　由于本人工作忙,所以很多功能还没时间写上.目前已经写好了整体框架,有兴趣的同学可当作自己学习锻炼机会,参考我的源码设计模式,将新增的功能Pull Request给我,谢谢.
+　　WeiXin,QQ,WeiBo目录下的SDK需要手动导入,另外第三方平台的SDK可能需要手动导入一些类库,具体的先参考具体平台的官方说明,有空更新上.本人工作忙,所以很多功能还没时间写上.目前已经写好了整体框架,有兴趣的同学可当作自己学习锻炼机会,参考我的源码设计模式,将新增的功能Pull Request给我,谢谢.
