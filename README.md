@@ -1,5 +1,8 @@
 # CC轻量级开放平台服务
 
+## 更新说明
+　　2016年09月12日 **1.新增获取authCode接口;**
+
 ## 前言
 　　提供第三方开放平台的集成服务,一句代码实现一种功能~喜欢的朋友可以前来点个小星星
 ## 特色
@@ -9,6 +12,7 @@
 1. 集成微信,QQ,微博的开放平台SDK.
 2. 提供统一的请求入口,一句代码即可完成任务,简单高效.
 3. 目前支持开放平台登录接入功能,其他功能(分享,收藏,评论等)后期有时间会更新上.
+4. 支持单独获取OAuth 2.0中的access_token(微信为code),提升安全性.
 
 ## 使用方法
 1 直接将整个目录拖到你的项目中.(注意用group形式,目录会显示成黄色).本库用到AFNetworking,需要自己集成.
@@ -67,6 +71,20 @@
 //微信登录
 CCOpenService *wxService = [CCOpenService getOpenServiceWithName:CCOpenServiceNameWeiXin];
 [wxService requestOpenAccount:^(CCOpenRespondEntity *respond) {
+    if (respond == nil) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示" message:@"^_^亲,您木有安装微信哟~ " delegate:nil cancelButtonTitle:@"知道啦" otherButtonTitles:nil];
+        [alert show];
+        return;
+    }
+    NSLog(@"Respond data is %@",respond.data);
+}];
+```
+
+### 获取第三方AuthCode接口
+``` objective
+// 如果需求里对第三方登录功能有着更为严格的安全要求时,可以只获取到access_token(微信为code),此接口只需要平台的申请到的帐号id(或者key)而不需要密钥(或者secret)即可实现,获取到authcode之后发给服务端,由服务端处理获取用户个人openid和其他信息部分的业务逻辑即可~
+CCOpenService *wxService = [CCOpenService getOpenServiceWithName:CCOpenServiceNameWeiXin];
+[wxService requestOpenAuthCode:^(CCOpenRespondEntity *respond) {
     if (respond == nil) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示" message:@"^_^亲,您木有安装微信哟~ " delegate:nil cancelButtonTitle:@"知道啦" otherButtonTitles:nil];
         [alert show];
