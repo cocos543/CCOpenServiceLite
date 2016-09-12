@@ -18,8 +18,17 @@ typedef enum : NSInteger{
 
 @interface CCOpenService : NSObject
 
-+(instancetype)getOpenServiceWithName:(CCOpenServiceName)name;
--(BOOL)handleOpenURL:(NSURL *)url;
--(void)requestOpenAccount:(void(^)(CCOpenRespondEntity *))respondHander;
++ (instancetype)getOpenServiceWithName:(CCOpenServiceName)name;
+- (BOOL)handleOpenURL:(NSURL *)url;
+- (void)requestOpenAccount:(void(^)(CCOpenRespondEntity *))respondHander;
+
+/**
+ *  QQ and WeiBo will return an ACCESS_TOKEN. WeiXin will return a CODE.
+ *  
+ *  Note: This method can be used in some special cases when the server require higher security.
+ *
+ *  @param respondHander respondHander's block.
+ */
+- (void)requestOpenAuthCode:(void(^)(CCOpenRespondEntity *))respondHander;
 
 @end

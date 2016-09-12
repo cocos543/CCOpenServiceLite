@@ -21,12 +21,18 @@
 @implementation CCOpenService
 
 #pragma mark - 面向用户
--(BOOL)handleOpenURL:(NSURL *)url {
+- (BOOL)handleOpenURL:(NSURL *)url {
     return [self.strategy handleOpenURL:url];
 }
 
--(void)requestOpenAccount:(void(^)(CCOpenRespondEntity *))respondHander {
+- (void)requestOpenAccount:(void(^)(CCOpenRespondEntity *))respondHander {
     [self.strategy requestOpenAccount:^(CCOpenRespondEntity *respond) {
+        respondHander(respond);
+    }];
+}
+
+- (void)requestOpenAuthCode:(void(^)(CCOpenRespondEntity *))respondHander {
+    [self.strategy requestOpenAuthCode:^(CCOpenRespondEntity *respond) {
         respondHander(respond);
     }];
 }
@@ -38,7 +44,7 @@
  *  @return service实例
  */
 
-+(instancetype)getOpenServiceWithName:(CCOpenServiceName)name {
++ (instancetype)getOpenServiceWithName:(CCOpenServiceName)name {
     CCOpenStrategy *strategy = nil;
     CCOpenService *service = [[CCOpenService alloc] init];
     switch (name) {

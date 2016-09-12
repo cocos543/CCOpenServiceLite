@@ -34,7 +34,7 @@
 }
 
 #pragma mark - <CCOpenProtocol> 面向CCOpenService
-+(instancetype)sharedOpenStrategy{
++ (instancetype)sharedOpenStrategy{
     static CCWeiBoOpenStrategy *strategy = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken,^{
@@ -47,7 +47,7 @@
     return strategy;
 }
 
--(BOOL)handleOpenURL:(NSURL *)url{
+- (BOOL)handleOpenURL:(NSURL *)url{
     return [WeiboSDK handleOpenURL:url delegate:self];
 }
 
@@ -56,7 +56,7 @@
  *  
  *  @param respondHander 异步获取到用户数据后,respondHander将会在主线程中执行
  */
--(void)requestOpenAccount:(void (^)(CCOpenRespondEntity *))respondHander{
+- (void)requestOpenAccount:(void (^)(CCOpenRespondEntity *))respondHander{
     WBAuthorizeRequest *request = [WBAuthorizeRequest request];
     request.redirectURI = [CCOpenConfig getWeiBoRedirectURI];
     request.scope = @"all";
@@ -66,23 +66,49 @@
     self.respondHander = respondHander;
 }
 
+- (void)requestOpenAuthCode:(void (^)(CCOpenRespondEntity *))respondHander{
+    WBAuthorizeRequest *request = [WBAuthorizeRequest request];
+    request.redirectURI = [CCOpenConfig getWeiBoRedirectURI];
+    request.scope = @"all";
+    //可以不填写....
+    request.userInfo = @{@"type":kOPEN_PERMISSION_GET_AUTH_TOKEN};
+    [WeiboSDK sendRequest:request];
+    self.respondHander = respondHander;
+}
+
+#pragma mark - Private
+- (void)respondHanderForAuthCode:(NSString *)authCode{
+    CCOpenRespondEntity *entity = [[CCOpenRespondEntity alloc] init];
+    entity.type = CCOpenEntityTypeWeiBoAuthCode;
+    entity.data = [[NSMutableDictionary alloc] initWithObjectsAndKeys:authCode, @"authCode", nil];
+    self.respondHander(entity);
+}
+
+- (void)respondHanderForUserInfo:(NSDictionary *)userInfo{
+    CCOpenRespondEntity *entity = [[CCOpenRespondEntity alloc] init];
+    entity.type = CCOpenEntityTypeWeiBo;
+    entity.data = (NSMutableDictionary *)userInfo;
+    self.respondHander(entity);
+}
+
 #pragma mark - 实现WeiboSDKDelegate
--(void)didReceiveWeiboRequest:(WBBaseRequest *)request{
+- (void)didReceiveWeiboRequest:(WBBaseRequest *)request{
     NSLog(@"Request is :%@",request);
 }
 
--(void)didReceiveWeiboResponse:(WBBaseResponse *)response{
+- (void)didReceiveWeiboResponse:(WBBaseResponse *)response{
     if (response.statusCode != WeiboSDKResponseStatusCodeSuccess) {
-        NSLog(@"StatusCode is :%d",response.statusCode);
+        NSLog(@"StatusCode is :%@",@(response.statusCode));
         return;
     }
+    
     WBAuthorizeResponse *autoResopnse = (WBAuthorizeResponse *)response;
-    [WBHttpRequest requestForUserProfile:autoResopnse.userID withAccessToken:autoResopnse.accessToken andOtherProperties:nil queue:nil withCompletionHandler:^(WBHttpRequest *httpRequest, id result, NSError *error) {
-        CCOpenRespondEntity *entity = [[CCOpenRespondEntity alloc] init];
-        entity.type = CCOpenEntityTypeWeiBo;
-        entity.data = [CCWeiBoOpenStrategy dictionaryFromeWeiboUser:(WeiboUser *)result];
-        self.respondHander(entity);
-        
-    }];
+    if ([response.requestUserInfo[@"type"] isEqualToString:kOPEN_PERMISSION_GET_AUTH_TOKEN]) {
+        [self respondHanderForAuthCode:autoResopnse.accessToken];
+    }else{
+        [WBHttpRequest requestForUserProfile:autoResopnse.userID withAccessToken:autoResopnse.accessToken andOtherProperties:nil queue:nil withCompletionHandler:^(WBHttpRequest *httpRequest, id result, NSError *error) {
+            [self respondHanderForUserInfo:[CCWeiBoOpenStrategy dictionaryFromeWeiboUser:(WeiboUser *)result]];
+        }];
+    }
 }
 @end

@@ -18,13 +18,28 @@
  *
  *  @return 单例对象
  */
-+(instancetype)sharedOpenStrategy;
++ (instancetype)sharedOpenStrategy;
+
+- (void)respondHanderForAuthCode:(NSString *)authCode;
+
+- (void)respondHanderForUserInfo:(NSDictionary *)userInfo;
+
 /**
  *  获取用户登录帐号信息
  *
  *  @param respondHander 获取到信息后回调该块
  */
--(void)requestOpenAccount:(void(^)(CCOpenRespondEntity *respond))respondHander;
+- (void)requestOpenAccount:(void(^)(CCOpenRespondEntity *respond))respondHander;
+
+/**
+ *  QQ and WeiBo will return an ACCESS_TOKEN. WeiXin will return a CODE.
+ *
+ *  Note: This method can be used in some special cases when the server require higher security.
+ *
+ *  @param respondHander respondHander's block.
+ */
+- (void)requestOpenAuthCode:(void(^)(CCOpenRespondEntity *))respondHander;
+
 /**
  *  操作其他程序调用当前程序
  *
@@ -32,11 +47,12 @@
  *
  *  @return 是否接收调用
  */
--(BOOL)handleOpenURL:(NSURL *)url;
+- (BOOL)handleOpenURL:(NSURL *)url;
 
 /**
  *  后续可以增加其他功能,比如分享,收藏等
  */
+
 
 @end
 

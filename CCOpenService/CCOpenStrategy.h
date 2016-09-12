@@ -10,6 +10,7 @@
 #import "CCOpenProtocol.h"
 #import "CCOpenRespondEntity.h"
 
+#define kOPEN_PERMISSION_GET_AUTH_TOKEN @"kOPEN_PERMISSION_GET_AUTH_TOKEN"
 
 @interface CCOpenStrategy : NSObject <CCOpenProtocol>
 @property (nonatomic,copy) void (^respondHander)(CCOpenRespondEntity *);

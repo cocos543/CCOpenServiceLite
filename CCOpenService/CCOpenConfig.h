@@ -10,26 +10,26 @@
 
 @interface CCOpenConfig : NSObject
 //微信 配置
-+(void)setWeiXinAppID:(NSString *)AppID;
-+(NSString *)getWeiXinAppID;
++ (void)setWeiXinAppID:(NSString *)AppID;
++ (NSString *)getWeiXinAppID;
 
-+(void)setWeiXinAppSecret:(NSString *)AppSecret;
-+(NSString *)getWeiXinAppSecret;
++ (void)setWeiXinAppSecret:(NSString *)AppSecret;
++ (NSString *)getWeiXinAppSecret;
 
 //QQ 配置
-+(void)setQQAppID:(NSString *)AppID;
-+(NSString *)getQQAppID;
++ (void)setQQAppID:(NSString *)AppID;
++ (NSString *)getQQAppID;
 
-+(void)setQQAppKey:(NSString *)AppKey;
-+(NSString *)getQQAppKey;
++ (void)setQQAppKey:(NSString *)AppKey;
++ (NSString *)getQQAppKey;
 
 //微博 配置
-+(void)setWeiBoAppKey:(NSString *)AppKey;
-+(NSString *)getWeiBoAppKey;
++ (void)setWeiBoAppKey:(NSString *)AppKey;
++ (NSString *)getWeiBoAppKey;
 
-+(void)setWeiBoAppSecret:(NSString *)AppSecret;
-+(NSString *)getWeiBoAppSecret;
++ (void)setWeiBoAppSecret:(NSString *)AppSecret;
++ (NSString *)getWeiBoAppSecret;
 
-+(void)setWeiBoRedirectURI:(NSString *)URI;
-+(NSString *)getWeiBoRedirectURI;
++ (void)setWeiBoRedirectURI:(NSString *)URI;
++ (NSString *)getWeiBoRedirectURI;
 @end

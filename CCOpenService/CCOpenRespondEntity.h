@@ -10,8 +10,11 @@
 
 typedef enum : NSInteger{
     CCOpenEntityTypeWeiXin = 0,
+    CCOpenEntityTypeWeiXinAuthCode,
     CCOpenEntityTypeQQ,
-    CCOpenEntityTypeWeiBo
+    CCOpenEntityTypeQQAuthCode,
+    CCOpenEntityTypeWeiBo,
+    CCOpenEntityTypeWeiBoAuthCode
 } CCOpenEntityType;
 
 @interface CCOpenRespondEntity : NSObject
