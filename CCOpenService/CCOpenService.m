@@ -36,6 +36,7 @@
         respondHander(respond);
     }];
 }
+
 /**
  *  获取service实例
  *
@@ -43,7 +44,6 @@
  *
  *  @return service实例
  */
-
 + (instancetype)getOpenServiceWithName:(CCOpenServiceName)name {
     CCOpenStrategy *strategy = nil;
     CCOpenService *service = [[CCOpenService alloc] init];
@@ -64,6 +64,17 @@
     return service;
 }
 
+- (BOOL)isAppInstalled {
+    return [self.strategy isAppInstalled];
+}
+
+- (void)logOutWithAuthCode:(NSString *)authCode {
+    [self.strategy logOutWithAuthCode:authCode];
+}
+
+- (void)requestPay:(CCOpenPayRequestEntity *)payEntity respondHander:(void(^)(CCOpenRespondEntity *respond))respondHander{
+    [self.strategy requestPay:payEntity respondHander:respondHander];
+}
 
 
 @end

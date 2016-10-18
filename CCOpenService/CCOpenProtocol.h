@@ -10,6 +10,7 @@
 #define CCOpenProtocol_h
 
 @class CCOpenRespondEntity;
+@class CCOpenPayRequestEntity;
 
 @protocol CCOpenProtocol <NSObject>
 @required
@@ -25,7 +26,7 @@
 - (void)respondHanderForUserInfo:(NSDictionary *)userInfo;
 
 /**
- *  获取用户登录帐号信息
+ *  获取用户登录账号信息
  *
  *  @param respondHander 获取到信息后回调该块
  */
@@ -48,6 +49,19 @@
  *  @return 是否接收调用
  */
 - (BOOL)handleOpenURL:(NSURL *)url;
+
+
+- (BOOL)isAppInstalled;
+
+- (void)logOutWithAuthCode:(NSString *)authCode;
+
+/**
+ *  Pay
+ *
+ *  @param payEntity
+ */
+- (void)requestPay:(CCOpenPayRequestEntity *)payEntity respondHander:(void(^)(CCOpenRespondEntity *respond))respondHander;
+
 
 /**
  *  后续可以增加其他功能,比如分享,收藏等

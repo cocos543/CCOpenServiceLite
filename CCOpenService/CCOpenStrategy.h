@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "CCOpenProtocol.h"
 #import "CCOpenRespondEntity.h"
+#import "CCOpenPayRequestEntity.h"
+#import "CCOpenWXPayRequestEntity.h"
 
 #define kOPEN_PERMISSION_GET_AUTH_TOKEN @"kOPEN_PERMISSION_GET_AUTH_TOKEN"
 

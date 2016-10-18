@@ -58,6 +58,14 @@
     self.respondHander = respondHander;
 }
 
+- (BOOL)isAppInstalled{
+    return YES;
+}
+
+- (void)logOutWithAuthCode:(NSString *)authCode{
+    NSLog(@"暂时没有实现......");
+}
+
 #pragma mark - Private
 - (void)respondHanderForAuthCode:(NSString *)authCode{
     CCOpenRespondEntity *entity = [[CCOpenRespondEntity alloc] init];

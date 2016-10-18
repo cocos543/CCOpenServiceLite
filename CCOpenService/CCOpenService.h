@@ -31,4 +31,11 @@ typedef enum : NSInteger{
  */
 - (void)requestOpenAuthCode:(void(^)(CCOpenRespondEntity *))respondHander;
 
+
+- (BOOL)isAppInstalled;
+
+- (void)logOutWithAuthCode:(NSString *)authCode;
+
+- (void)requestPay:(CCOpenPayRequestEntity *)payEntity respondHander:(void(^)(CCOpenRespondEntity *respond))respondHander;
+
 @end

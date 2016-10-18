@@ -76,6 +76,36 @@
     return [WXApi handleOpenURL:url delegate:self];
 }
 
+- (BOOL)isAppInstalled{
+    return [WXApi isWXAppInstalled];
+}
+
+- (void)logOutWithAuthCode:(NSString *)authCode{
+    NSLog(@"暂时没有实现......");
+}
+
+/**
+ Weixin pay
+
+ @param payEntity CCOpenWXPayRequestEntity *
+ @param respondHander respond block
+ */
+- (void)requestPay:(CCOpenWXPayRequestEntity *)payEntity respondHander:(void(^)(CCOpenRespondEntity *respond))respondHander{
+    self.respondHander = respondHander;
+    PayReq *request = [[PayReq alloc] init];
+    request.openID    = payEntity.wxAppID;
+    request.partnerId = payEntity.partnerID;
+    request.prepayId  = payEntity.prepayID;
+    request.package   = payEntity.package;
+    request.nonceStr  = payEntity.nonceStr;
+    request.timeStamp = [payEntity.timestamp intValue];
+    request.sign      = payEntity.sign;
+    
+    
+    [WXApi sendReq:request];
+
+}
+
 #pragma mark - Private
 - (void)respondHanderForAuthCode:(NSString *)authCode{
     CCOpenRespondEntity *entity = [[CCOpenRespondEntity alloc] init];
@@ -93,7 +123,31 @@
 
 #pragma mark - 实现WXApiDelegate
 - (void)onResp:(BaseResp *)resp{
-    [self requestUserInfoWithBaseResp:(SendAuthResp *)resp];
+    if ([resp isKindOfClass:[PayResp class]]){
+        NSMutableDictionary *resultDic = [[NSMutableDictionary alloc] init];
+        PayResp *response = (PayResp *)resp;
+        switch(response.errCode){
+            case WXSuccess:
+                resultDic[@"result"] = @"WXSuccess";
+                NSLog(@"wx pay success");
+                break;
+            case WXErrCodeUserCancel:
+                resultDic[@"result"] = @"WXErrCodeUserCancel";
+                NSLog(@"wx pay cancel");
+                break;
+            default:
+                resultDic[@"result"] = @"WXErr";
+                NSLog(@"wx pay fail，retcode=%d",resp.errCode);
+                break;
+        }
+        
+        CCOpenRespondEntity *entity = [[CCOpenRespondEntity alloc] init];
+        entity.type = CCOpenEntityTypeWeiXin;
+        entity.data = resultDic;
+        self.respondHander(entity);
+    }else if ([resp isKindOfClass:[SendAuthResp class]]){
+        [self requestUserInfoWithBaseResp:(SendAuthResp *)resp];
+    }
 }
 
 - (void)onReq:(BaseReq *)req{

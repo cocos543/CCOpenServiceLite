@@ -34,4 +34,17 @@
     //Do nothing.
     return NO;
 }
+
+- (BOOL)isAppInstalled{
+    //Do nothing.
+    return NO;
+}
+
+- (void)logOutWithAuthCode:(NSString *)authCode{
+    //Do nothing.
+}
+
+- (void)requestPay:(CCOpenPayRequestEntity *)payEntity respondHander:(void(^)(CCOpenRespondEntity *respond))respondHander{
+    //Do nothing.
+}
 @end

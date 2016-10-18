@@ -76,6 +76,14 @@
     self.respondHander = respondHander;
 }
 
+- (BOOL)isAppInstalled{
+    return YES;
+}
+
+- (void)logOutWithAuthCode:(NSString *)authCode{
+    [WeiboSDK logOutWithToken:authCode delegate:nil withTag:@"251"];
+}
+
 #pragma mark - Private
 - (void)respondHanderForAuthCode:(NSString *)authCode{
     CCOpenRespondEntity *entity = [[CCOpenRespondEntity alloc] init];
