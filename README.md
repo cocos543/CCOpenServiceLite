@@ -1,6 +1,7 @@
 # CC轻量级开放平台服务
 
 ## 更新说明
+　　2016年10月26日 **1.新增支持接口;**
 　　2016年09月12日 **1.新增获取authCode接口;**
 
 ## 前言
@@ -11,7 +12,7 @@
 ## 主要功能
 1. 集成微信,QQ,微博的开放平台SDK.
 2. 提供统一的请求入口,一句代码即可完成任务,简单高效.
-3. 目前支持开放平台登录接入功能,其他功能(分享,收藏,评论等)后期有时间会更新上.
+3. 目前支持开放平台登录,支付功能接入,其他功能(分享,收藏,评论等)后期有时间会更新上.
 4. 支持单独获取OAuth 2.0中的access_token(微信为code),提升安全性.
 
 ## 使用方法
@@ -91,6 +92,35 @@ CCOpenService *wxService = [CCOpenService getOpenServiceWithName:CCOpenServiceNa
         return;
     }
     NSLog(@"Respond data is %@",respond.data);
+}];
+```
+
+### 支付功能
+　　工作项目关系,目前只支持微信支付.
+　　**注意,微信支付务必将全局统一下单步骤安排到服务端完成,再由服务端返回唤起微信客户端所需要的相关参数,用以唤起微信客户端并完成支付**
+
+``` objective
+CCOpenWXPayRequestEntity *wxEntity = [[CCOpenWXPayRequestEntity alloc] init];
+wxEntity.wxAppID   = <#appid#>;
+wxEntity.partnerID = <#partnerid#>;
+wxEntity.prepayID  = <#prepayid#>;
+wxEntity.nonceStr  = <#noncestr#>;
+wxEntity.timestamp = <#timestamp#>;
+wxEntity.package   = @"Sign=WXPay";
+wxEntity.sign      = <#sign#>;
+
+CCOpenService *wxService = [CCOpenService getOpenServiceWithName:CCOpenServiceNameWeiXin];
+[wxService requestPay:wxEntity respondHander:^(CCOpenRespondEntity *respond) {
+    NSString *payResult = respond.data[@"result"];
+    if ([payResult isEqualToString:@"WXSuccess"]) {
+            // Query the result of payment from service..
+            //Do something
+    }else if([payResult isEqualToString:@"WXErrCodeUserCancel"]) {
+        //User cancel
+    }else {
+        //Error~
+    }
+    NSLog(@"%@",respond.data);
 }];
 ```
 
