@@ -1,11 +1,11 @@
 # CC轻量级开放平台服务
 
 ## 更新说明
-　　2016年10月26日 **1.新增支持接口;**  
+　　2016年10月26日 **1.新增支付接口;**  
 　　2016年09月12日 **1.新增获取authCode接口;**
 
 ## 前言
-　　提供第三方开放平台的集成服务,一句代码实现一种功能~喜欢的朋友可以前来点个小星星
+　　提供第三方开放平台的集成服务,一句代码实现一种功能~喜欢的朋友可以前来点个小星星.
 ## 特色
 　　目前市面上提供的第三方SDK,相当繁琐臃肿,还需要去他们的集成平台上注册各种key之类的,相当麻烦.**CC轻量级开放平台服务**提供一行代码请求数据服务,底层集成了各平台SDK,用户无需关心具体平台的实现,省事省心.
 
@@ -24,6 +24,7 @@
 
 ``` objectivec
 //AppDelegate.m
+// 注意,如果不需要使用到Secret,则Secret直接填写为@"test"即可
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     //微信配置
     [CCOpenConfig setWeiXinAppID:WeiXinAppID];
@@ -125,5 +126,5 @@ CCOpenService *wxService = [CCOpenService getOpenServiceWithName:CCOpenServiceNa
 ```
 
 ## 其他说明
-　　WeiXin,QQ,WeiBo目录下的SDK需要手动导入,另外第三方平台的SDK可能需要手动导入一些类库,具体的先参考具体平台的官方说明,有空更新上.  
+　　所有SDK均为当前最新版,WeiXin,QQ,WeiBo目录下的SDK需要手动导入,另外第三方平台的SDK可能需要手动导入一些类库,具体的先参考具体平台的官方说明,有空更新上.  
 　　本人工作忙,所以很多功能还没时间写上.目前已经写好了整体框架,有兴趣的同学可当作自己学习锻炼机会,参考我的源码设计模式,将新增的功能Pull Request给我,谢谢.
