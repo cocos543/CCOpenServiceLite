@@ -1,6 +1,6 @@
 //
 //  CCShareFilterView.h
-//  FlowMiner
+//  
 //
 //  Created by Cocos on 2017/5/3.
 //  Copyright © 2017年 Cocos. All rights reserved.
