@@ -2,7 +2,7 @@
 //  CCOpenStrategy.m
 //  
 //
-//  Created by 郑克明 on 16/4/12.
+//  Created by Cocos on 16/4/12.
 //  Copyright © 2016年 Cocos. All rights reserved.
 //
 #import "CCOpenStrategy.h"
@@ -40,11 +40,25 @@
     return NO;
 }
 
+- (BOOL)openApp {
+    //Do nothing
+    return NO;
+}
+
 - (void)logOutWithAuthCode:(NSString *)authCode{
+    //Do nothing.
+}
+
+- (void)updateAppConfig {
     //Do nothing.
 }
 
 - (void)requestPay:(CCOpenPayRequestEntity *)payEntity respondHander:(void(^)(CCOpenRespondEntity *respond))respondHander{
     //Do nothing.
 }
+
+- (void)shareMessageWith:(CCOpenShareRequestEntity *)shareEntity respondHander:(void (^)(CCOpenRespondEntity *))respondHander {
+    
+}
+
 @end

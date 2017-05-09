@@ -2,7 +2,7 @@
 //  CCQQOpenStrategy.h
 //  
 //
-//  Created by 郑克明 on 16/4/18.
+//  Created by Cocos on 16/4/18.
 //  Copyright © 2016年 Cocos. All rights reserved.
 //
 

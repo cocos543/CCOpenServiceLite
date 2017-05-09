@@ -2,7 +2,7 @@
 //  CCOpenConfig.h
 //  
 //
-//  Created by 郑克明 on 16/4/15.
+//  Created by Cocos on 16/4/15.
 //  Copyright © 2016年 Cocos. All rights reserved.
 //
 

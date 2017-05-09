@@ -2,7 +2,7 @@
 //  CCOpenService.m
 //
 //
-//  Created by 郑克明 on 16/4/12.
+//  Created by Cocos on 16/4/12.
 //  Copyright © 2016年 Cocos. All rights reserved.
 //
 
@@ -21,21 +21,6 @@
 @implementation CCOpenService
 
 #pragma mark - 面向用户
-- (BOOL)handleOpenURL:(NSURL *)url {
-    return [self.strategy handleOpenURL:url];
-}
-
-- (void)requestOpenAccount:(void(^)(CCOpenRespondEntity *))respondHander {
-    [self.strategy requestOpenAccount:^(CCOpenRespondEntity *respond) {
-        respondHander(respond);
-    }];
-}
-
-- (void)requestOpenAuthCode:(void(^)(CCOpenRespondEntity *))respondHander {
-    [self.strategy requestOpenAuthCode:^(CCOpenRespondEntity *respond) {
-        respondHander(respond);
-    }];
-}
 
 /**
  *  获取service实例
@@ -64,17 +49,44 @@
     return service;
 }
 
+- (BOOL)handleOpenURL:(NSURL *)url {
+    return [self.strategy handleOpenURL:url];
+}
+
+- (void)requestOpenAccount:(void(^)(CCOpenRespondEntity *))respondHander {
+    [self.strategy requestOpenAccount:^(CCOpenRespondEntity *respond) {
+        respondHander(respond);
+    }];
+}
+
+- (void)requestOpenAuthCode:(void(^)(CCOpenRespondEntity *))respondHander {
+    [self.strategy requestOpenAuthCode:^(CCOpenRespondEntity *respond) {
+        respondHander(respond);
+    }];
+}
+
 - (BOOL)isAppInstalled {
     return [self.strategy isAppInstalled];
+}
+
+- (BOOL)openApp {
+    return [self.strategy openApp];
 }
 
 - (void)logOutWithAuthCode:(NSString *)authCode {
     [self.strategy logOutWithAuthCode:authCode];
 }
 
+- (void)updateAppConfig {
+    [self.strategy updateAppConfig];
+}
+
 - (void)requestPay:(CCOpenPayRequestEntity *)payEntity respondHander:(void(^)(CCOpenRespondEntity *respond))respondHander{
     [self.strategy requestPay:payEntity respondHander:respondHander];
 }
 
+- (void)shareMessageWith:(CCOpenShareRequestEntity *)shareEntity respondHander:(void (^)(CCOpenRespondEntity *))respondHander {
+    [self.strategy shareMessageWith:shareEntity respondHander:respondHander];
+}
 
 @end

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="LJA-sI-ixF" customClass="CCShareFilterView">
+            <rect key="frame" x="0.0" y="0.0" width="365" height="260"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="分享到" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K1K-pz-TgE">
+                    <rect key="frame" x="0.0" y="0.0" width="365" height="40"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="JJd-QK-KCq"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.33333333329999998" green="0.33333333329999998" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="IQ2-FR-5c2">
+                    <rect key="frame" x="0.0" y="40" width="365" height="180"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Kd7-QB-9qb">
+                        <size key="itemSize" width="50" height="50"/>
+                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                        <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    </collectionViewFlowLayout>
+                    <connections>
+                        <outlet property="dataSource" destination="LJA-sI-ixF" id="Ce7-AZ-UHM"/>
+                        <outlet property="delegate" destination="LJA-sI-ixF" id="AcW-Ue-sj3"/>
+                    </connections>
+                </collectionView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7jE-er-QGf">
+                    <rect key="frame" x="0.0" y="220" width="365" height="40"/>
+                    <color key="backgroundColor" red="0.0" green="0.5450980392" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="Dsw-hQ-58A"/>
+                    </constraints>
+                    <state key="normal" title="取消">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <state key="highlighted" backgroundImage="Public_BluePoint"/>
+                    <connections>
+                        <action selector="confirmAction:" destination="LJA-sI-ixF" eventType="touchUpInside" id="ynA-0b-33n"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="0.94509803920000002" green="0.94509803920000002" blue="0.94509803920000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="K1K-pz-TgE" secondAttribute="trailing" id="8Hb-GI-1pF"/>
+                <constraint firstAttribute="trailing" secondItem="IQ2-FR-5c2" secondAttribute="trailing" id="FtW-aX-8TS"/>
+                <constraint firstItem="IQ2-FR-5c2" firstAttribute="leading" secondItem="LJA-sI-ixF" secondAttribute="leading" id="H79-Ba-dRM"/>
+                <constraint firstItem="7jE-er-QGf" firstAttribute="leading" secondItem="LJA-sI-ixF" secondAttribute="leading" id="JLr-fU-4ke"/>
+                <constraint firstItem="IQ2-FR-5c2" firstAttribute="top" secondItem="K1K-pz-TgE" secondAttribute="bottom" id="N2a-yK-YgL"/>
+                <constraint firstItem="K1K-pz-TgE" firstAttribute="top" secondItem="LJA-sI-ixF" secondAttribute="top" id="QET-gY-sfj"/>
+                <constraint firstItem="7jE-er-QGf" firstAttribute="top" secondItem="IQ2-FR-5c2" secondAttribute="bottom" id="cIO-ua-Hcy"/>
+                <constraint firstItem="K1K-pz-TgE" firstAttribute="leading" secondItem="LJA-sI-ixF" secondAttribute="leading" id="jnh-as-Br9"/>
+                <constraint firstAttribute="trailing" secondItem="7jE-er-QGf" secondAttribute="trailing" id="mhN-Aw-e5j"/>
+                <constraint firstItem="K1K-pz-TgE" firstAttribute="top" secondItem="LJA-sI-ixF" secondAttribute="top" id="oJQ-Xf-kna"/>
+                <constraint firstAttribute="bottom" secondItem="7jE-er-QGf" secondAttribute="bottom" id="vRA-r1-ssd"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="collectionView" destination="IQ2-FR-5c2" id="IOj-lw-5E3"/>
+            </connections>
+            <point key="canvasLocation" x="40.5" y="87"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="Public_BluePoint" width="1" height="1"/>
+    </resources>
+</document>

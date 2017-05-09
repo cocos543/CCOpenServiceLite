@@ -2,7 +2,7 @@
 //  CCOpenProtocol.h
 //  
 //
-//  Created by 郑克明 on 16/4/12.
+//  Created by Cocos on 16/4/12.
 //  Copyright © 2016年 Cocos. All rights reserved.
 //
 
@@ -11,6 +11,7 @@
 
 @class CCOpenRespondEntity;
 @class CCOpenPayRequestEntity;
+@class CCOpenShareRequestEntity;
 
 @protocol CCOpenProtocol <NSObject>
 @required
@@ -55,6 +56,8 @@
 
 - (void)logOutWithAuthCode:(NSString *)authCode;
 
+- (BOOL)openApp;
+
 /**
  *  Pay
  *
@@ -62,11 +65,12 @@
  */
 - (void)requestPay:(CCOpenPayRequestEntity *)payEntity respondHander:(void(^)(CCOpenRespondEntity *respond))respondHander;
 
+- (void)updateAppConfig;
 
 /**
- *  后续可以增加其他功能,比如分享,收藏等
+ * Share
  */
-
+- (void)shareMessageWith:(CCOpenShareRequestEntity *)shareEntity respondHander:(void(^)(CCOpenRespondEntity *))respondHander;
 
 @end
 

@@ -2,7 +2,7 @@
 //  CCWeiXinOpenStrategy.m
 //  
 //
-//  Created by 郑克明 on 16/4/12.
+//  Created by Cocos on 16/4/12.
 //  Copyright © 2016年 Cocos. All rights reserved.
 //
 
@@ -64,7 +64,7 @@
         return;
     }
     //构造SendAuthReq结构体
-    SendAuthReq* req = [[SendAuthReq alloc ] init ];
+    SendAuthReq* req = [[SendAuthReq alloc ] init];
     req.scope = @"snsapi_userinfo";
     req.state = kOPEN_PERMISSION_GET_AUTH_TOKEN;
     //第三方向微信终端发送一个SendAuthReq消息结构
@@ -80,8 +80,16 @@
     return [WXApi isWXAppInstalled];
 }
 
+- (BOOL)openApp {
+    return [WXApi openWXApp];
+}
+
 - (void)logOutWithAuthCode:(NSString *)authCode{
     NSLog(@"暂时没有实现......");
+}
+
+- (void)updateAppConfig {
+    [WXApi registerApp:[CCOpenConfig getWeiXinAppID]];
 }
 
 /**
@@ -106,6 +114,30 @@
 
 }
 
+- (void)shareMessageWith:(CCOpenShareRequestEntity *)shareEntity respondHander:(void(^)(CCOpenRespondEntity *))respondHander {
+    self.respondHander = respondHander;
+    if ([shareEntity isKindOfClass:[CCOpenURLShareRequestEntity class]]) {
+        WXMediaMessage *msg = [WXMediaMessage message];
+        msg.title = shareEntity.title;
+        msg.description = shareEntity.desc;
+        
+        [msg setThumbImage:[[UIImage alloc] initWithData:[NSData dataWithContentsOfURL:shareEntity.thumbURL]]];
+        WXWebpageObject *webpage = [WXWebpageObject object];
+        webpage.webpageUrl = [(CCOpenURLShareRequestEntity *)shareEntity urlString];
+        msg.mediaObject = webpage;
+        
+        SendMessageToWXReq *req = [[SendMessageToWXReq alloc] init];
+        req.bText = NO;
+        req.message = msg;
+        if (shareEntity.shareTo == CCOpenShareToWeChatTL) {
+            req.scene = WXSceneTimeline;
+        }else {
+            req.scene = WXSceneSession;
+        }
+        [WXApi sendReq:req];
+    }
+}
+
 #pragma mark - Private
 - (void)respondHanderForAuthCode:(NSString *)authCode{
     CCOpenRespondEntity *entity = [[CCOpenRespondEntity alloc] init];
@@ -123,21 +155,25 @@
 
 #pragma mark - 实现WXApiDelegate
 - (void)onResp:(BaseResp *)resp{
-    if ([resp isKindOfClass:[PayResp class]]){
+    if ([resp isKindOfClass:[PayResp class]] || [resp isKindOfClass:[SendMessageToWXResp class]]) {
         NSMutableDictionary *resultDic = [[NSMutableDictionary alloc] init];
         PayResp *response = (PayResp *)resp;
         switch(response.errCode){
             case WXSuccess:
-                resultDic[@"result"] = @"WXSuccess";
-                NSLog(@"wx pay success");
+                resultDic[@"result"] = @"CCSuccess";
+                NSLog(@"wx success");
                 break;
             case WXErrCodeUserCancel:
-                resultDic[@"result"] = @"WXErrCodeUserCancel";
-                NSLog(@"wx pay cancel");
+                if ([resp isKindOfClass:[SendMessageToWXResp class]]) {
+                    NSLog(@"User canceled");
+                    return;
+                }
+                resultDic[@"result"] = @"CCErrCodeUserCancel";
+                NSLog(@"wx cancel");
                 break;
             default:
-                resultDic[@"result"] = @"WXErr";
-                NSLog(@"wx pay fail，retcode=%d",resp.errCode);
+                resultDic[@"result"] = @"CCErr";
+                NSLog(@"wx fail，retcode=%d",resp.errCode);
                 break;
         }
         
@@ -146,11 +182,13 @@
         entity.data = resultDic;
         self.respondHander(entity);
     }else if ([resp isKindOfClass:[SendAuthResp class]]){
+        
         [self requestUserInfoWithBaseResp:(SendAuthResp *)resp];
+        
     }
 }
 
-- (void)onReq:(BaseReq *)req{
+- (void)onReq:(BaseReq *)req {
     NSLog(@"onReq :%@",req);
 }
 

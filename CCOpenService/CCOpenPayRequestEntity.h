@@ -6,8 +6,22 @@
 //  Copyright © 2016年 Cocos. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import "CCOpenRequestEntity.h"
 
-@interface CCOpenPayRequestEntity : NSObject
+@interface CCOpenPayRequestEntity : CCOpenRequestEntity
 
 @end
+
+@interface CCOpenWXPayRequestEntity : CCOpenPayRequestEntity
+
+@property (strong, nonatomic) NSString *wxAppID;
+@property (strong, nonatomic) NSString *partnerID;
+@property (strong, nonatomic) NSString *nonceStr;
+@property (strong, nonatomic) NSString *prepayID;
+@property (strong, nonatomic) NSString *package;
+@property (strong, nonatomic) NSString *timestamp;
+@property (strong, nonatomic) NSString *sign;
+
+@end
+
+

@@ -1,11 +1,12 @@
 # CC轻量级开放平台服务
 
 ## 更新说明
+　　2017年05月09日 **1.新增微信,QQ,微博分享接口;2.新增链接分享UI**  
 　　2016年10月26日 **1.新增支付接口;**  
 　　2016年09月12日 **1.新增获取authCode接口;**
 
 ## 前言
-　　提供第三方开放平台的集成服务,一句代码实现一种功能~喜欢的朋友可以前来点个小星星.
+　　提供第三方开放平台的集成服务,一句代码实现一种功能~喜欢的朋友可以前来点个小星星.(目前主要用于练习)
 ## 特色
 　　目前市面上提供的第三方SDK,相当繁琐臃肿,还需要去他们的集成平台上注册各种key之类的,相当麻烦.**CC轻量级开放平台服务**提供一行代码请求数据服务,底层集成了各平台SDK,用户无需关心具体平台的实现,省事省心.
 
@@ -122,6 +123,27 @@ CCOpenService *wxService = [CCOpenService getOpenServiceWithName:CCOpenServiceNa
         //Error~
     }
     NSLog(@"%@",respond.data);
+}];
+```
+
+### 分享功能
+　　目前只支持链接分享.  
+　　**注意:具体的分享接口已经在CCShareFilterView中实现,CCShareFilterView为默认的UI,可直接使用;建议用户自行设计UI.**
+
+``` objective
+//如果直接使用默认的UI,则只需要引入头文件CCShareFilterView.h即可,不需要引入CCOpenService.h.
+CCShareFilterView *sView = [CCSimpleTools fm_loadViewFromXib:@"CCShareFilterView"];
+
+//设置需要分享的实体
+CCOpenURLShareRequestEntity *shareEntity = [[CCOpenURLShareRequestEntity alloc] init];
+shareEntity.urlString = @"https://www.baidu.com";
+shareEntity.thumbURL = [[NSBundle mainBundle] URLForResource:@"Public_ShareTest" withExtension:@"png"];
+shareEntity.title = @"标题";
+shareEntity.desc = @"描述";
+sView.shareEntity = shareEntity;
+
+[sView showFilterViewWithOptions:0 completeHander:^(NSString *msg) {
+    [self toastMessage:msg];
 }];
 ```
 

@@ -11,3 +11,8 @@
 @implementation CCOpenPayRequestEntity
 
 @end
+
+
+@implementation CCOpenWXPayRequestEntity
+
+@end

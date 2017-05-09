@@ -2,7 +2,7 @@
 //  CCOpenStrategy.h
 //  
 //
-//  Created by 郑克明 on 16/4/12.
+//  Created by Cocos on 16/4/12.
 //  Copyright © 2016年 Cocos. All rights reserved.
 //
 
@@ -37,5 +37,11 @@ typedef enum : NSInteger{
 - (void)logOutWithAuthCode:(NSString *)authCode;
 
 - (void)requestPay:(CCOpenPayRequestEntity *)payEntity respondHander:(void(^)(CCOpenRespondEntity *respond))respondHander;
+
+- (BOOL)openApp;
+
+- (void)updateAppConfig;
+
+- (void)shareMessageWith:(CCOpenShareRequestEntity *)shareEntity respondHander:(void(^)(CCOpenRespondEntity *))respondHander;
 
 @end
