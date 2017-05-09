@@ -13,7 +13,7 @@
 ## 主要功能
 1. 集成微信,QQ,微博的开放平台SDK.
 2. 提供统一的请求入口,一句代码即可完成任务,简单高效.
-3. 目前支持开放平台登录,支付功能接入,其他功能(分享,收藏,评论等)后期有时间会更新上.
+3. 目前支持开放平台登录,支付功能接入,链接分享;其他功能(收藏,评论等)后期有时间会更新上.
 4. 支持单独获取OAuth 2.0中的access_token(微信为code),提升安全性.
 
 ## 使用方法
@@ -132,7 +132,7 @@ CCOpenService *wxService = [CCOpenService getOpenServiceWithName:CCOpenServiceNa
 
 ``` objective
 //如果直接使用默认的UI,则只需要引入头文件CCShareFilterView.h即可,不需要引入CCOpenService.h.
-CCShareFilterView *sView = [CCSimpleTools fm_loadViewFromXib:@"CCShareFilterView"];
+CCShareFilterView *sView = [[[NSBundle mainBundle] loadNibNamed:@"CCShareFilterView" owner:nil options:nil] firstObject];
 
 //设置需要分享的实体
 CCOpenURLShareRequestEntity *shareEntity = [[CCOpenURLShareRequestEntity alloc] init];
@@ -143,7 +143,7 @@ shareEntity.desc = @"描述";
 sView.shareEntity = shareEntity;
 
 [sView showFilterViewWithOptions:0 completeHander:^(NSString *msg) {
-    [self toastMessage:msg];
+    NSLog(@"%@", msg);
 }];
 ```
 
