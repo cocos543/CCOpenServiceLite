@@ -1,31 +1,31 @@
-# CC轻量级开放平台服务
+# CC輕量級開放平臺服務
 
-## 更新说明
-　　2017年05月09日 **1.新增微信,QQ,微博分享接口;2.新增链接分享UI**  
+## 更新說明
+　　2017年05月09日 **1.新增微信,QQ,微博分享接口;2.新增鏈接分享UI**  
 　　2016年10月26日 **1.新增支付接口;**  
-　　2016年09月12日 **1.新增获取authCode接口;**
+　　2016年09月12日 **1.新增獲取authCode接口;**
 
 ## 前言
-　　提供第三方开放平台的集成服务,一句代码实现一种功能~喜欢的朋友可以前来点个小星星.(目前主要用于练习)
+　　提供第三方開放平臺的集成服務,壹句代碼實現壹種功能~喜歡的朋友可以前來點個小星星.(目前主要用於練習)
 ## 特色
-　　目前市面上提供的第三方SDK,相当繁琐臃肿,还需要去他们的集成平台上注册各种key之类的,相当麻烦.**CC轻量级开放平台服务**提供一行代码请求数据服务,底层集成了各平台SDK,用户无需关心具体平台的实现,省事省心.
+　　目前市面上提供的第三方SDK,相當繁瑣臃腫,還需要去他們的集成平臺上註冊各種key之類的,相當麻煩.**CC輕量級開放平臺服務**提供壹行代碼請求數據服務,底層集成了各平臺SDK,用戶無需關心具體平臺的實現,省事省心.
 
 ## 主要功能
-1. 集成微信,QQ,微博的开放平台SDK.
-2. 提供统一的请求入口,一句代码即可完成任务,简单高效.
-3. 目前支持开放平台登录,支付功能接入,链接分享;其他功能(收藏,评论等)后期有时间会更新上.
-4. 支持单独获取OAuth 2.0中的access_token(微信为code),提升安全性.
+1. 集成微信,QQ,微博的開放平臺SDK.
+2. 提供統壹的請求入口,壹句代碼即可完成任務,簡單高效.
+3. 目前支持開放平臺登錄,支付功能接入,鏈接分享;其他功能(收藏,評論等)後期有時間會更新上.
+4. 支持單獨獲取OAuth 2.0中的access_token(微信為code),提升安全性.
 
 ## 使用方法
-1 直接将整个目录拖到你的项目中.(注意用group形式,目录会显示成黄色).本库用到AFNetworking,需要自己集成.
+1 直接將整個目錄拖到妳的項目中.(註意用group形式,目錄會顯示成黃色).本庫用到AFNetworking,需要自己集成.
 
    ![image](images/CCOpenService_Tree.png)
       
-2 在AppDelegate.m文件顶部引入头文件CCOpenService.h,CCOpenConfig.h,并且写入下面的配置信息(注意,类似WeiXinAppID这样的,填写自己的微信appID)
+2 在AppDelegate.m文件頂部引入頭文件CCOpenService.h,CCOpenConfig.h,並且寫入下面的配置信息(註意,類似WeiXinAppID這樣的,填寫自己的微信appID)
 
 ``` objectivec
 //AppDelegate.m
-// 注意,如果不需要使用到Secret,则Secret直接填写为@"test"即可
+// 註意,如果不需要使用到Secret,則Secret直接填寫為@"test"即可
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     //微信配置
     [CCOpenConfig setWeiXinAppID:WeiXinAppID];
@@ -60,22 +60,22 @@
 }
 ```
 
-3 参考各个平台关于URL scheme的配置指南.例如微信:
+3 參考各個平臺關於URL scheme的配置指南.例如微信:
 ![image](images/WeiXin_URL_Scheme.jpg)
 
-4 iOS9 设备需要添加白名单,参考[iOS9白名单](https://github.com/ChenYilong/iOS9AdaptationTips)
+4 iOS9 設備需要添加白名單,參考[iOS9白名單](https://github.com/ChenYilong/iOS9AdaptationTips)
 
-## 接口使用说明
-　　服务类型目前支持CCOpenServiceNameWeiXin,CCOpenServiceNameQQ,CCOpenServiceNameWeiBo
+## 接口使用說明
+　　服務類型目前支持CCOpenServiceNameWeiXin,CCOpenServiceNameQQ,CCOpenServiceNameWeiBo
 
-### 第三方登录接口
+### 第三方登錄接口
 
 ``` objective
-//微信登录
+//微信登錄
 CCOpenService *wxService = [CCOpenService getOpenServiceWithName:CCOpenServiceNameWeiXin];
 [wxService requestOpenAccount:^(CCOpenRespondEntity *respond) {
     if (respond == nil) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示" message:@"^_^亲,您木有安装微信哟~ " delegate:nil cancelButtonTitle:@"知道啦" otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"溫馨提示" message:@"^_^親,您木有安裝微信喲~ " delegate:nil cancelButtonTitle:@"知道啦" otherButtonTitles:nil];
         [alert show];
         return;
     }
@@ -83,13 +83,13 @@ CCOpenService *wxService = [CCOpenService getOpenServiceWithName:CCOpenServiceNa
 }];
 ```
 
-### 获取第三方AuthCode接口
+### 獲取第三方AuthCode接口
 ``` objective
-// 如果需求里对第三方登录功能有着更为严格的安全要求时,可以只获取到access_token(微信为code),此接口只需要平台的申请到的帐号id(或者key)而不需要密钥(或者secret)即可实现,获取到authcode之后发给服务端,由服务端处理获取用户个人openid和其他信息部分的业务逻辑即可~
+// 如果需求裏對第三方登錄功能有著更為嚴格的安全要求時,可以只獲取到access_token(微信為code),此接口只需要平臺的申請到的帳號id(或者key)而不需要密鑰(或者secret)即可實現,獲取到authcode之後發給服務端,由服務端處理獲取用戶個人openid和其他信息部分的業務邏輯即可~
 CCOpenService *wxService = [CCOpenService getOpenServiceWithName:CCOpenServiceNameWeiXin];
 [wxService requestOpenAuthCode:^(CCOpenRespondEntity *respond) {
     if (respond == nil) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"温馨提示" message:@"^_^亲,您木有安装微信哟~ " delegate:nil cancelButtonTitle:@"知道啦" otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"溫馨提示" message:@"^_^親,您木有安裝微信喲~ " delegate:nil cancelButtonTitle:@"知道啦" otherButtonTitles:nil];
         [alert show];
         return;
     }
@@ -98,8 +98,8 @@ CCOpenService *wxService = [CCOpenService getOpenServiceWithName:CCOpenServiceNa
 ```
 
 ### 支付功能
-　　工作项目关系,目前只支持微信支付.  
-　　**注意,微信支付务必将全局统一下单步骤安排到服务端完成,再由服务端返回唤起微信客户端所需要的相关参数,用以唤起微信客户端并完成支付**
+　　工作項目關系,目前只支持微信支付.  
+　　**註意,微信支付務必將全局統壹下單步驟安排到服務端完成,再由服務端返回喚起微信客戶端所需要的相關參數,用以喚起微信客戶端並完成支付**
 
 ``` objective
 CCOpenWXPayRequestEntity *wxEntity = [[CCOpenWXPayRequestEntity alloc] init];
@@ -127,18 +127,18 @@ CCOpenService *wxService = [CCOpenService getOpenServiceWithName:CCOpenServiceNa
 ```
 
 ### 分享功能
-　　目前只支持链接分享.  
-　　**注意:具体的分享接口已经在CCShareFilterView中实现,CCShareFilterView为默认的UI,可直接使用;建议用户自行设计UI.**
+　　目前只支持鏈接分享.  
+　　**註意:具體的分享接口已經在CCShareFilterView中實現,CCShareFilterView為默認的UI,可直接使用;建議用戶自行設計UI.**
 
 ``` objective
-//如果直接使用默认的UI,则只需要引入头文件CCShareFilterView.h即可,不需要引入CCOpenService.h.
+//如果直接使用默認的UI,則只需要引入頭文件CCShareFilterView.h即可,不需要引入CCOpenService.h.
 CCShareFilterView *sView = [[[NSBundle mainBundle] loadNibNamed:@"CCShareFilterView" owner:nil options:nil] firstObject];
 
-//设置需要分享的实体
+//設置需要分享的實體
 CCOpenURLShareRequestEntity *shareEntity = [[CCOpenURLShareRequestEntity alloc] init];
 shareEntity.urlString = @"https://www.baidu.com";
 shareEntity.thumbURL = [[NSBundle mainBundle] URLForResource:@"Public_ShareTest" withExtension:@"png"];
-shareEntity.title = @"标题";
+shareEntity.title = @"標題";
 shareEntity.desc = @"描述";
 sView.shareEntity = shareEntity;
 
@@ -147,6 +147,6 @@ sView.shareEntity = shareEntity;
 }];
 ```
 
-## 其他说明
-　　所有SDK均为当前最新版,WeiXin,QQ,WeiBo目录下的SDK需要手动导入,另外第三方平台的SDK可能需要手动导入一些类库,具体的先参考具体平台的官方说明,有空更新上.  
-　　本人工作忙,所以很多功能还没时间写上.目前已经写好了整体框架,有兴趣的同学可当作自己学习锻炼机会,参考我的源码设计模式,将新增的功能Pull Request给我,谢谢.
+## 其他說明
+　　所有SDK均為當前最新版,WeiXin,QQ,WeiBo目錄下的SDK需要手動導入,另外第三方平臺的SDK可能需要手動導入壹些類庫,具體的先參考具體平臺的官方說明,有空更新上.  
+　　本人工作忙,所以很多功能還沒時間寫上.目前已經寫好了整體框架,有興趣的同學可當作自己學習鍛煉機會,參考我的源碼設計模式,將新增的功能Pull Request給我,謝謝.
